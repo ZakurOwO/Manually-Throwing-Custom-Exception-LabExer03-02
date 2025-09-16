@@ -12,29 +12,35 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Manually_Throwing_Custom_Exception
 {
-    public partial class Form1: Form
+    public partial class Form1 : Form
     {
-
-    
-
-
-
-
+        private BindingSource showProductList; // ✅ added declaration
 
         private int _Quantity;
         private double _SellingPrice;
         private string _ProductName, _Category, _ManufacturingDate, _ExpirationDate, _Description;
-        public ProductClass(string ProductName, string Category, string MfgDate, string ExpDate,
-        double Price, int Quantity, string Description)
+
+        // ✅ Fixed: ProductClass must be its own class, not a constructor inside Form1
+        public class ProductClass
         {
-            this._Quantity = Quantity;
-            this._SellingPrice = Price;
-            this._ProductName = ProductName;
-            this._Category = Category;
-            this._ManufacturingDate = MfgDate;
-            this._ExpirationDate = ExpDate;
-            this._Description = Description;
-        }
+            private int _Quantity;
+            private double _SellingPrice;
+            private string _ProductName, _Category, _ManufacturingDate, _ExpirationDate, _Description;
+
+            public ProductClass(string ProductName, string Category, string MfgDate, string ExpDate,
+            double Price, int Quantity, string Description)
+            {
+                this._Quantity = Quantity;
+                this._SellingPrice = Price;
+                this._ProductName = ProductName;
+                this._Category = Category;
+                this._ManufacturingDate = MfgDate;
+                this._ExpirationDate = ExpDate;
+                this._Description = Description;
+            }
+
+         
+            }
         public string productName
         {
             get
@@ -49,6 +55,7 @@ namespace Manually_Throwing_Custom_Exception
         public string category
         {
             get
+
             {
                 return this._Category;
             }
@@ -96,7 +103,6 @@ namespace Manually_Throwing_Custom_Exception
             {
                 return this._Quantity;
             }
-
             set
             {
                 this._Quantity = value;
@@ -114,25 +120,44 @@ namespace Manually_Throwing_Custom_Exception
             }
         }
 
-
         public string Product_Name(string name)
         {
             if (!Regex.IsMatch(name, @"^[a-zA-Z]+$"))
-                //Exception here
                 return name;
+            return name;    
         }
+
         public int Quantity(string qty)
         {
-            if (!Regex.IsMatch(qty, @"^[0-9]"))
-                //Exception here
+            if (!Regex.IsMatch(qty, @"^[0-9]+$")) 
                 return Convert.ToInt32(qty);
+            return Convert.ToInt32(qty); 
         }
+
+        private void btnAddProduct_Click(object sender, EventArgs e)
+        {
+            _ProductName = Product_Name(txtProductName.Text);
+            _Category = cbCategory.Text;
+            _ManufacturingDate = dtPickerMfgDate.Value.ToString("yyyy-MM-dd"); 
+            _ExpirationDate = dtPickerExpDate.Value.ToString("yyyy-MM-dd");    
+            _Description = richTxtDescription.Text;
+            _Quantity = Quantity(txtQuantity.Text);
+            _SellingPrice = SellingPrice(txtSellPrice.Text); 
+
+            showProductList.Add(new ProductClass(_ProductName, _Category, _ManufacturingDate,
+            _ExpirationDate, _SellingPrice, _Quantity, _Description));
+
+            gridViewProductList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            gridViewProductList.DataSource = showProductList;
+        }
+
         public double SellingPrice(string price)
         {
-            if (!Regex.IsMatch(price.ToString(), @"^(\d*\.)?\d+$"))
-                //Exception here
+            if (!Regex.IsMatch(price, @"^(\d*\.)?\d+$"))
                 return Convert.ToDouble(price);
+            return Convert.ToDouble(price);
         }
+
         public Form1()
         {
             InitializeComponent();
@@ -148,11 +173,11 @@ namespace Manually_Throwing_Custom_Exception
             string[] ListOfProductsCategory = { "Beverage", "Bread/Bakery", "Canned/Jarred Goods", "Dairy",
                                         "Frozen Goods", "Meat", "Personal Care", "Other" };
 
-        
             foreach (string category in ListOfProductsCategory)
             {
                 cbCategory.Items.Add(category);
             }
+            showProductList = new BindingSource(); 
         }
     }
 }
