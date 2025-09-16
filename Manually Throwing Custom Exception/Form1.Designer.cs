@@ -51,7 +51,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(205)))), ((int)(((byte)(199)))));
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(138)))), ((int)(((byte)(145)))));
             this.label1.Location = new System.Drawing.Point(7, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(120, 25);
@@ -62,15 +64,20 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(205)))), ((int)(((byte)(199)))));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(138)))), ((int)(((byte)(145)))));
             this.label2.Location = new System.Drawing.Point(5, 82);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Product";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(205)))), ((int)(((byte)(199)))));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(138)))), ((int)(((byte)(145)))));
             this.label3.Location = new System.Drawing.Point(5, 116);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 13);
@@ -80,6 +87,8 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(205)))), ((int)(((byte)(199)))));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(138)))), ((int)(((byte)(145)))));
             this.label4.Location = new System.Drawing.Point(5, 180);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 13);
@@ -89,6 +98,8 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(205)))), ((int)(((byte)(199)))));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(138)))), ((int)(((byte)(145)))));
             this.label5.Location = new System.Drawing.Point(5, 147);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 13);
@@ -98,6 +109,8 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(205)))), ((int)(((byte)(199)))));
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(138)))), ((int)(((byte)(145)))));
             this.label6.Location = new System.Drawing.Point(3, 247);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(51, 13);
@@ -107,6 +120,8 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(205)))), ((int)(((byte)(199)))));
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(138)))), ((int)(((byte)(145)))));
             this.label7.Location = new System.Drawing.Point(9, 216);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(29, 13);
@@ -115,6 +130,7 @@
             // 
             // txtProductName
             // 
+            this.txtProductName.BackColor = System.Drawing.Color.White;
             this.txtProductName.Location = new System.Drawing.Point(68, 81);
             this.txtProductName.Name = "txtProductName";
             this.txtProductName.Size = new System.Drawing.Size(181, 20);
@@ -122,6 +138,7 @@
             // 
             // cbCategory
             // 
+            this.cbCategory.BackColor = System.Drawing.Color.White;
             this.cbCategory.FormattingEnabled = true;
             this.cbCategory.Location = new System.Drawing.Point(68, 107);
             this.cbCategory.Name = "cbCategory";
@@ -130,6 +147,7 @@
             // 
             // dtPickerMfgDate
             // 
+            this.dtPickerMfgDate.CalendarTitleForeColor = System.Drawing.Color.AliceBlue;
             this.dtPickerMfgDate.Location = new System.Drawing.Point(68, 140);
             this.dtPickerMfgDate.Name = "dtPickerMfgDate";
             this.dtPickerMfgDate.Size = new System.Drawing.Size(181, 20);
@@ -144,6 +162,7 @@
             // 
             // txtQuantity
             // 
+            this.txtQuantity.BackColor = System.Drawing.Color.White;
             this.txtQuantity.Location = new System.Drawing.Point(68, 209);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(181, 20);
@@ -151,6 +170,7 @@
             // 
             // txtSellPrice
             // 
+            this.txtSellPrice.BackColor = System.Drawing.Color.White;
             this.txtSellPrice.Location = new System.Drawing.Point(68, 240);
             this.txtSellPrice.Name = "txtSellPrice";
             this.txtSellPrice.Size = new System.Drawing.Size(181, 20);
@@ -158,7 +178,8 @@
             // 
             // richTxtDescription
             // 
-            this.richTxtDescription.Location = new System.Drawing.Point(328, 76);
+            this.richTxtDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(156)))), ((int)(((byte)(151)))));
+            this.richTxtDescription.Location = new System.Drawing.Point(327, 75);
             this.richTxtDescription.Name = "richTxtDescription";
             this.richTxtDescription.Size = new System.Drawing.Size(278, 172);
             this.richTxtDescription.TabIndex = 13;
@@ -167,14 +188,18 @@
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(205)))), ((int)(((byte)(199)))));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(138)))), ((int)(((byte)(145)))));
             this.label8.Location = new System.Drawing.Point(325, 60);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(60, 13);
             this.label8.TabIndex = 14;
             this.label8.Text = "Description";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // gridViewProductList
             // 
+            this.gridViewProductList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(98)))), ((int)(((byte)(106)))));
             this.gridViewProductList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridViewProductList.Location = new System.Drawing.Point(12, 282);
             this.gridViewProductList.Name = "gridViewProductList";
@@ -183,18 +208,21 @@
             // 
             // btnAddProduct
             // 
+            this.btnAddProduct.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(205)))), ((int)(((byte)(199)))));
+            this.btnAddProduct.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(138)))), ((int)(((byte)(145)))));
             this.btnAddProduct.Location = new System.Drawing.Point(530, 253);
             this.btnAddProduct.Name = "btnAddProduct";
             this.btnAddProduct.Size = new System.Drawing.Size(75, 23);
             this.btnAddProduct.TabIndex = 16;
             this.btnAddProduct.Text = "Add Product";
-            this.btnAddProduct.UseVisualStyleBackColor = true;
+            this.btnAddProduct.UseVisualStyleBackColor = false;
             this.btnAddProduct.Click += new System.EventHandler(this.btnAddProduct_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(241)))), ((int)(((byte)(199)))));
             this.ClientSize = new System.Drawing.Size(617, 453);
             this.Controls.Add(this.btnAddProduct);
             this.Controls.Add(this.gridViewProductList);
