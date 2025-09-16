@@ -11,15 +11,28 @@ using System.Windows.Forms;
 
 namespace Manually_Throwing_Custom_Exception
 {
+    public class NumberFormatException : Exception
+    {
+        public NumberFormatException(string varName) : base(varName) { }
+    }
+
+    public class StringFormatException : Exception
+    {
+        public StringFormatException(string varName) : base(varName) { }
+    }
+
+    public class CurrencyFormatException : Exception
+    {
+        public CurrencyFormatException(string varName) : base(varName) { }
+    }
+
     public partial class Form1 : Form
     {
         private BindingSource showProductList;
-
         private int _Quantity;
         private double _SellingPrice;
         private string _ProductName, _Category, _ManufacturingDate, _ExpirationDate, _Description;
 
-        // ✅ ProductClass stays as is
         public class ProductClass
         {
             private int _Quantity;
@@ -118,18 +131,17 @@ namespace Manually_Throwing_Custom_Exception
             }
         }
 
-       
         public string Product_Name(string name)
         {
             try
             {
                 if (!Regex.IsMatch(name, @"^[a-zA-Z]+$"))
                 {
-                    throw new Exception("Product name must only contain letters.");
+                    throw new StringFormatException("Product name must only contain letters.");
                 }
                 return name;
             }
-            catch (Exception ex)
+            catch (StringFormatException ex)
             {
                 MessageBox.Show(ex.Message, "Invalid Product Name");
                 return string.Empty;
@@ -146,11 +158,11 @@ namespace Manually_Throwing_Custom_Exception
             {
                 if (!Regex.IsMatch(qty, @"^[0-9]+$"))
                 {
-                    throw new Exception("Quantity must be numeric.");
+                    throw new NumberFormatException("Quantity must be numeric.");
                 }
                 return Convert.ToInt32(qty);
             }
-            catch (Exception ex)
+            catch (NumberFormatException ex)
             {
                 MessageBox.Show(ex.Message, "Invalid Quantity");
                 return 0;
@@ -167,11 +179,11 @@ namespace Manually_Throwing_Custom_Exception
             {
                 if (!Regex.IsMatch(price, @"^(\d*\.)?\d+$"))
                 {
-                    throw new Exception("Selling price must be numeric.");
+                    throw new CurrencyFormatException("Selling price must be numeric.");
                 }
                 return Convert.ToDouble(price);
             }
-            catch (Exception ex)
+            catch (CurrencyFormatException ex)
             {
                 MessageBox.Show(ex.Message, "Invalid Price");
                 return 0.0;
@@ -192,7 +204,6 @@ namespace Manually_Throwing_Custom_Exception
             _Quantity = Quantity(txtQuantity.Text);
             _SellingPrice = SellingPrice(txtSellPrice.Text);
 
-      
             if (!string.IsNullOrEmpty(_ProductName) && _Quantity > 0 && _SellingPrice > 0)
             {
                 showProductList.Add(new ProductClass(_ProductName, _Category, _ManufacturingDate,
@@ -206,6 +217,11 @@ namespace Manually_Throwing_Custom_Exception
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
