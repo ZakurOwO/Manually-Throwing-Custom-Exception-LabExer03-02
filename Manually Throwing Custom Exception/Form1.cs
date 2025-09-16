@@ -8,19 +8,18 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Manually_Throwing_Custom_Exception
 {
     public partial class Form1 : Form
     {
-        private BindingSource showProductList; // ✅ added declaration
+        private BindingSource showProductList;
 
         private int _Quantity;
         private double _SellingPrice;
         private string _ProductName, _Category, _ManufacturingDate, _ExpirationDate, _Description;
 
-        // ✅ Fixed: ProductClass must be its own class, not a constructor inside Form1
+        // ✅ ProductClass stays as is
         public class ProductClass
         {
             private int _Quantity;
@@ -39,133 +38,174 @@ namespace Manually_Throwing_Custom_Exception
                 this._Description = Description;
             }
 
-         
-            }
-        public string productName
-        {
-            get
+            public string productName
             {
-                return this._ProductName;
+                get
+                {
+                    return this._ProductName;
+                }
+                set
+                {
+                    this._ProductName = value;
+                }
             }
-            set
+            public string category
             {
-                this._ProductName = value;
-            }
-        }
-        public string category
-        {
-            get
+                get
 
-            {
-                return this._Category;
+                {
+                    return this._Category;
+                }
+                set
+                {
+                    this._Category = value;
+                }
             }
-            set
+            public string manufacturingDate
             {
-                this._Category = value;
+                get
+                {
+                    return this._ManufacturingDate;
+                }
+                set
+                {
+                    this._ManufacturingDate = value;
+                }
             }
-        }
-        public string manufacturingDate
-        {
-            get
+            public string expirationDate
             {
-                return this._ManufacturingDate;
+                get
+                {
+                    return this._ExpirationDate;
+                }
+                set
+                {
+                    this._ExpirationDate = value;
+                }
             }
-            set
+            public string description
             {
-                this._ManufacturingDate = value;
+                get
+                {
+                    return this._Description;
+                }
+                set
+                {
+                    this._Description = value;
+                }
             }
-        }
-        public string expirationDate
-        {
-            get
+            public int quantity
             {
-                return this._ExpirationDate;
+                get
+                {
+                    return this._Quantity;
+                }
+                set
+                {
+                    this._Quantity = value;
+                }
             }
-            set
+            public double sellingPrice
             {
-                this._ExpirationDate = value;
-            }
-        }
-        public string description
-        {
-            get
-            {
-                return this._Description;
-            }
-            set
-            {
-                this._Description = value;
-            }
-        }
-        public int quantity
-        {
-            get
-            {
-                return this._Quantity;
-            }
-            set
-            {
-                this._Quantity = value;
-            }
-        }
-        public double sellingPrice
-        {
-            get
-            {
-                return this._SellingPrice;
-            }
-            set
-            {
-                this._SellingPrice = value;
+                get
+                {
+                    return this._SellingPrice;
+                }
+                set
+                {
+                    this._SellingPrice = value;
+                }
             }
         }
 
+       
         public string Product_Name(string name)
         {
-            if (!Regex.IsMatch(name, @"^[a-zA-Z]+$"))
+            try
+            {
+                if (!Regex.IsMatch(name, @"^[a-zA-Z]+$"))
+                {
+                    throw new Exception("Product name must only contain letters.");
+                }
                 return name;
-            return name;    
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Invalid Product Name");
+                return string.Empty;
+            }
+            finally
+            {
+                Console.WriteLine("Product_Name validation completed.");
+            }
         }
 
         public int Quantity(string qty)
         {
-            if (!Regex.IsMatch(qty, @"^[0-9]+$")) 
+            try
+            {
+                if (!Regex.IsMatch(qty, @"^[0-9]+$"))
+                {
+                    throw new Exception("Quantity must be numeric.");
+                }
                 return Convert.ToInt32(qty);
-            return Convert.ToInt32(qty); 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Invalid Quantity");
+                return 0;
+            }
+            finally
+            {
+                Console.WriteLine("Quantity validation completed.");
+            }
+        }
+
+        public double SellingPrice(string price)
+        {
+            try
+            {
+                if (!Regex.IsMatch(price, @"^(\d*\.)?\d+$"))
+                {
+                    throw new Exception("Selling price must be numeric.");
+                }
+                return Convert.ToDouble(price);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Invalid Price");
+                return 0.0;
+            }
+            finally
+            {
+                Console.WriteLine("SellingPrice validation completed.");
+            }
         }
 
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
             _ProductName = Product_Name(txtProductName.Text);
             _Category = cbCategory.Text;
-            _ManufacturingDate = dtPickerMfgDate.Value.ToString("yyyy-MM-dd"); 
-            _ExpirationDate = dtPickerExpDate.Value.ToString("yyyy-MM-dd");    
+            _ManufacturingDate = dtPickerMfgDate.Value.ToString("yyyy-MM-dd");
+            _ExpirationDate = dtPickerExpDate.Value.ToString("yyyy-MM-dd");
             _Description = richTxtDescription.Text;
             _Quantity = Quantity(txtQuantity.Text);
-            _SellingPrice = SellingPrice(txtSellPrice.Text); 
+            _SellingPrice = SellingPrice(txtSellPrice.Text);
 
-            showProductList.Add(new ProductClass(_ProductName, _Category, _ManufacturingDate,
-            _ExpirationDate, _SellingPrice, _Quantity, _Description));
+      
+            if (!string.IsNullOrEmpty(_ProductName) && _Quantity > 0 && _SellingPrice > 0)
+            {
+                showProductList.Add(new ProductClass(_ProductName, _Category, _ManufacturingDate,
+                _ExpirationDate, _SellingPrice, _Quantity, _Description));
 
-            gridViewProductList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            gridViewProductList.DataSource = showProductList;
-        }
-
-        public double SellingPrice(string price)
-        {
-            if (!Regex.IsMatch(price, @"^(\d*\.)?\d+$"))
-                return Convert.ToDouble(price);
-            return Convert.ToDouble(price);
+                gridViewProductList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                gridViewProductList.DataSource = showProductList;
+            }
         }
 
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -177,7 +217,7 @@ namespace Manually_Throwing_Custom_Exception
             {
                 cbCategory.Items.Add(category);
             }
-            showProductList = new BindingSource(); 
+            showProductList = new BindingSource();
         }
     }
 }
