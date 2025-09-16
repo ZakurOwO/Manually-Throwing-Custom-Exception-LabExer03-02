@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -111,6 +112,26 @@ namespace Manually_Throwing_Custom_Exception
             {
                 this._SellingPrice = value;
             }
+        }
+
+
+        public string Product_Name(string name)
+        {
+            if (!Regex.IsMatch(name, @"^[a-zA-Z]+$"))
+                //Exception here
+                return name;
+        }
+        public int Quantity(string qty)
+        {
+            if (!Regex.IsMatch(qty, @"^[0-9]"))
+                //Exception here
+                return Convert.ToInt32(qty);
+        }
+        public double SellingPrice(string price)
+        {
+            if (!Regex.IsMatch(price.ToString(), @"^(\d*\.)?\d+$"))
+                //Exception here
+                return Convert.ToDouble(price);
         }
         public Form1()
         {
